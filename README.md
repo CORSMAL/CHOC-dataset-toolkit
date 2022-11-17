@@ -1,6 +1,12 @@
 # CHOC-dataset-toolkit
 Toolkit for for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the data in 3D, clean the NOCS images, and convert 6D object poses.
 
+## TODO
+- [ ] Add code sample to inspect data in 3D
+- [ ] Add code sample to clean the NOCS images
+- [ ] Add code sample to convert Blender poses to camera-object poses
+- [ ] Add instructions to load the GraspIt! World files
+
 <details>
 <summary> Instructions to load the GraspIt! world files</summary>
 
