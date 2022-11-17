@@ -18,10 +18,10 @@ Toolkit for for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes t
  * Follow the steps ‘Install’ and ‘Model’ in https://github.com/ikalevatykh/mano_grasp
 
 4. Open GraspIt! via terminal
- 
+```
 $ source <your_graspit_ros_workspace>/devel/setup.bash
 $ roslaunch graspit_interface graspit_interface.launch
-
+```
 
 5. Convert object files from .glb to .off
  * Convert .glb files to .off. Here's a Python code sample:
