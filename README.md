@@ -1,13 +1,41 @@
 # CHOC-dataset-toolkit
-Toolkit for for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the data in 3D, clean the NOCS images, and convert 6D object poses.
+Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the 3D data, clean the NOCS images, convert 6D object poses, instructions, and other utility functions. You can download the CHOC dataset [here](https://zenodo.org/record/5085801#.Y3zGQ9LP2V4).
 
-## TODO
-- [ ] Add requirements.txt
-- [ ] Add code sample to inspect data in 3D
-- [ ] Add code sample to clean the NOCS images
-- [ ] Add code sample to convert Blender poses to camera-object poses
-- [ ] Add instructions to load the GraspIt! World files
-- [ ]
+[Webpage](https://corsmal.eecs.qmul.ac.uk/pose.html)
+
+### Install requirements
+
+This code has been tested with python 3.9. You can make and activate a conda environment:
+```
+conda create -n CHOC-toolkit-env python=3.9
+conda activate CHOC-toolkit-env
+
+```
+
+We need Scipy, Open3d, NumPy and OpenCV as libraries. You can install them as follows:
+```
+pip install requirements.txt
+```
+
+### Running the sample codes
+
+#### Inspecting the data
+```
+python inspect_data.py --choc_dir <path_to_choc>
+```
+
+#### Clean the NOCS backgrounds
+```
+python fix_nocs.py --choc_dir <path_to_choc>
+```
+
+#### Convert the poses
+```
+python convert_poses.py --choc_dir <path_to_choc>
+```
+
+### Other instructions
+
 <details>
 <summary> Instructions to load the GraspIt! world files</summary>
 
