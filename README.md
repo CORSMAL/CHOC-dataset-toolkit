@@ -7,7 +7,7 @@ Toolkit for for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes t
 - [ ] Add code sample to clean the NOCS images
 - [ ] Add code sample to convert Blender poses to camera-object poses
 - [ ] Add instructions to load the GraspIt! World files
-
+- [ ]
 <details>
 <summary> Instructions to load the GraspIt! world files</summary>
 
