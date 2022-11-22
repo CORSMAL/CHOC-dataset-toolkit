@@ -5,16 +5,16 @@ Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to in
 
 ### Install requirements
 
-This code has been tested with python 3.9. You can make and activate a conda environment:
+This code has been tested with python 3.9, but should work with other versions. You can make and activate a conda environment:
 ```
 conda create -n CHOC-toolkit-env python=3.9
 conda activate CHOC-toolkit-env
 
 ```
 
-We need Scipy, Open3d, NumPy and OpenCV as libraries. You can install them as follows:
+We need Scipy, Open3D, NumPy and OpenCV as libraries. You can install them as follows:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Running the sample codes
