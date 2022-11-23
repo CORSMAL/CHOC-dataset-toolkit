@@ -143,7 +143,7 @@ if __name__ == '__main__':
         RT, gt_scale_factor = load_pose_scaling_factor(batch_folder, image_index)
 
         # Get the nocs points
-        nocs_points = nocs_norm[idxs[0], idxs[1], :] - 0.5
+        nocs_points = nocs_norm[idxs[0], idxs[1], :] - 0.5 # we do -0.5 to centre the object at the origin
         # Un-normalise to get the metric points
         metric_points = nocs_points * gt_scale_factor # in millimeter
 
