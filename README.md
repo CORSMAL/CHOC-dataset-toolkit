@@ -28,7 +28,7 @@ We will use "000251" in the CHOC mixed-reality data as example, which you can al
 
   RGB                       |  NOCS                     |  Mask                     |  Depth
 :--------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![RGB](sample/CHOC/mixed-reality/rgb/b_000001_001000/000251.png) |![NOCS](sample/CHOC/mixed-reality/nocs/b_000001_001000/000251.png)|![Mask](sample/CHOC/mixed-reality/mask/b_000001_001000/000251.png)|![Depth](sample/CHOC/mixed-reality/depth/b_000001_001000/000251.png)
+![RGB](sample/CHOC/mixed-reality/rgb/b_000001_001000/000251.png) |![NOCS](sample/CHOC/mixed-reality/nocs/b_000001_001000/000251.png)|![Mask](sample/CHOC/mixed-reality/mask/b_000001_001000/000251.png)|![Depth](images/depth.png)
 
 #### Inspecting the data
 
@@ -36,6 +36,9 @@ We provide some sample code to visualise the data in 3D.
 ```
 python inspect_data.py --choc_dir <path_to_choc>
 ```
+ NOCS points (un-normalised)| Depth (blue) and transformed objet (red)             | Both (in camera coordinate system)
+:---------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![Metric object points](images/object.png) |![Depth; Transformed object](images/depth_and_transformed_object.png)|![Both](images/both.png)
 
 #### Clean the NOCS backgrounds
 ```

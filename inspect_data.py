@@ -79,7 +79,7 @@ nocs_norm = np.array(nocs_clean, dtype=np.float32) / 255.0
 
 
 # Back-project depth points | image plane (u,v,Z) -> camera coordinate system (X,Y,Z))
-pts, idxs = utils.backproject_opengl(depth, utils.get_intrinsics(), mask_binary)
+pts, idxs = utils.backproject_opengl(depth, utils.get_intrinsics(), mask_clean)
 
 
 ### Load INFO
@@ -101,16 +101,11 @@ location_xyz = image_info["location_xyz"]
 RT = utils.convert_blender_pose_to_camera_object_pose(pose_quat_wxyz, location_xyz, metric_height, verbose=True)
 
 
-# Get the nocs and metric points
-if True:
-    nocs_points = nocs_norm[idxs[0], idxs[1], :] - 0.5
-else:
-    gt_image_points = np.asarray(idxs).transpose().astype(np.float32)
-    gt_image_points[:,[0, 1]] = gt_image_points[:,[1, 0]]
-    nocs_points = nocs[gt_image_points[0],gt_image_points[1],:] - 0.5
-
-gt_scale_factor = utils.get_space_dag(metric_width, metric_height, metric_depth, scale=1000, verbose=True)
-metric_points = nocs_points * gt_scale_factor # in mm
+# Get the nocs points
+nocs_points = nocs_norm[idxs[0], idxs[1], :] - 0.5
+gt_scale_factor = utils.get_space_dag(metric_width, metric_height, metric_depth, scale=1000, verbose=True) # normalising factor (NOCS)
+# Un-normalise to get the metric points
+metric_points = nocs_points * gt_scale_factor # in millimeter
 
 
 #### Visualise in Open3D
