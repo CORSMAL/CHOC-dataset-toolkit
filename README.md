@@ -18,15 +18,15 @@ Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to in
 
 ## Installation <a name="requirements"></a>
 
-The toolkit was implemented and tested with the following requirements on a machine with Ubuntu XXX
+The toolkit was implemented and tested with the following requirements on a machine with Ubuntu 18.04
 
 Requirements:
-- Anaconda XXX
+- Anaconda 4.13.0
 - Python 3.9
-- SciPy version?
-- Open3D version?
-- NumPy version?
-- OpenCV version?
+- SciPy 1.9.3
+- Open3D 0.16.0
+- NumPy 1.23.5
+- OpenCV 4.5.5.64
 
 Use the following commands to install the toolkit within an Anaconda environment:
 ```
