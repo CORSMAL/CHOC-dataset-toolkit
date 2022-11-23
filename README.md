@@ -1,9 +1,14 @@
 # CHOC-dataset-toolkit
-Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the 3D data, clean the NOCS images, convert 6D object poses, instructions, and other utility functions. You can download the CHOC dataset [here](https://zenodo.org/record/5085801#.Y3zGQ9LP2V4).
+Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the 3D data, clean the NOCS images, convert 6D object poses, instructions, and other utility functions. You can download the CHOC dataset [here](https://zenodo.org/record/5085801#.Y3zGQ9LP2V4), and read the corresponding paper [here](https://arxiv.org/abs/2211.10470).
 
 [Webpage](https://corsmal.eecs.qmul.ac.uk/pose.html)
 
 ### Install requirements
+
+- SciPy
+- Open3D
+- NumPy
+- OpenCV
 
 This code has been tested with python 3.9, but should work with other versions. You can make and activate a conda environment:
 ```
@@ -12,7 +17,7 @@ conda activate CHOC-toolkit-env
 
 ```
 
-We need Scipy, Open3D, NumPy and OpenCV as libraries. You can install them as follows:
+You can install the dependencies as follows:
 ```
 pip install -r requirements.txt
 ```
@@ -28,6 +33,10 @@ python inspect_data.py --choc_dir <path_to_choc>
 ```
 python fix_nocs.py --choc_dir <path_to_choc>
 ```
+
+  Before                    |  After
+:--------------------------:|:-------------------------:
+![Before processing](images/nocs_before.png) |![After processing](images/nocs_after.png)
 
 #### Convert the poses
 ```
@@ -76,3 +85,11 @@ o3d.io.write_triangle_mesh(<path_to_output_off_file>, mesh)
 6. Load our GraspIt! world to load the hand and object
  * File > Import World > Look for the .xml files in graspit_worlds (e.g. right_hand_bottom_box_01.xml) 
 </details>
+
+### Enquiries
+
+For any questions, please open an Issue on this repository, or send an email to corsmal-challenge@qmul.ac.uk.
+
+### License
+
+This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
