@@ -3,7 +3,17 @@ Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to in
 
 [Webpage](https://corsmal.eecs.qmul.ac.uk/pose.html)
 
-## Install requirements
+## Table of contents
+1. [Requirements](#requirements)
+2. [Running sample codes](#running)
+   1. [Inspect the data](#inspect)
+   2. [Clean the NOCS backgrounds](#clean)
+   3. [Convert poses](#convert)
+3. [Other instructions](#instructions)
+4. [Enquiries](#enquires)
+5. [License](#license)
+
+## Requirements <a name="requirements"></a>
 
 - SciPy
 - Open3D
@@ -21,7 +31,7 @@ You can install the dependencies as follows:
 pip install -r requirements.txt
 ```
 
-## Running the sample codes
+## Running sample codes <a name="running"></a>
 
 Here, we will explain how to inspect the data in 3D, clean the NOCS backgrounds, and convert the annotated poses into camera2object poses.
 We will use "000251" in the CHOC mixed-reality data as example, which you can also find in this repository in the _sample_ folder.
@@ -37,7 +47,7 @@ We will use "000251" in the CHOC mixed-reality data as example, which you can al
 
 </details>
 
-### Inspecting the data
+### Inspecting the data <a name="inspect"></a>
 
 We provide some sample code to visualise the data in 3D.
 ```
@@ -56,7 +66,7 @@ python inspect_data.py --choc_dir <path_to_choc> --image_index 000251
 </details>
 
 
-### Clean the NOCS backgrounds
+### Clean the NOCS backgrounds <a name="clean"></a>
 
 Due to an issue in the rendering process, the background pixels of the NOCS images are not truly black, i.e. [0,0,0]. We provide sample code to fix this.
 
@@ -77,7 +87,7 @@ Here we zoom in on the pixels. Note how they were [13,13,13] or [14,14,14] befor
 
 </details>
 
-### Convert the poses
+### Convert the poses <a name="convert"></a>
 
 Here's an example of the annotated file, e.g.: CHOC > mixed-reality > annotations > b_000001_0010000 > 000001.json:
 ```
@@ -122,7 +132,7 @@ Pose between camera and object:
 Pose for blender is simply _location\_xyz_ and _pose\_quaternion\_wxyz_ converted into a 4x4 transformation matrix.
 Pose between camera and object is the 4x4 transformation matrix between the camera and object.
 
-## Other instructions
+## Other instructions <a name="instructions"></a>
 
 <details>
 <summary> Instructions to load the GraspIt! world files</summary>
@@ -165,10 +175,10 @@ o3d.io.write_triangle_mesh(<path_to_output_off_file>, mesh)
  * File > Import World > Look for the .xml files in graspit_worlds (e.g. right_hand_bottom_box_01.xml) 
 </details>
 
-### Enquiries
+## Enquiries <a name="enquiries"></a>
 
 For any questions, please open an Issue on this repository, or send an email to corsmal-challenge@qmul.ac.uk.
 
-### License
+## License <a name="license"></a>
 
 This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
