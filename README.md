@@ -85,6 +85,7 @@ Legend:
 * green: un-normalised NOCS-points
 * blue: depth points 
 * red: un-normalised NOCS points transformed using the converted pose
+<br>
 
   Object                      |  Depth, Annotation        |  Both                     
 :----------------------------:|:-------------------------:|:-------------------------:
