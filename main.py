@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Sample code to inspect the data in 3D, fix the NOCS backgrounds and convert poses.
+# Sample code to inspect the data in 3D, fix the NOCS backgrounds and convert poses
 #
 ################################################################################## 
 # Author: 
