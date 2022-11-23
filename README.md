@@ -36,8 +36,9 @@ We provide some sample code to visualise the data in 3D.
 ```
 python inspect_data.py --choc_dir <path_to_choc>
 ```
- NOCS points (un-normalised)| Depth (blue) and transformed objet (red)             | Both (in camera coordinate system)
-:---------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+
+  Object                      |  Depth, Annotation        |  Both                     
+:----------------------------:|:-------------------------:|:-------------------------:
 ![Metric object points](images/object.png) |![Depth; Transformed object](images/depth_and_transformed_object.png)|![Both](images/both.png)
 
 #### Clean the NOCS backgrounds
