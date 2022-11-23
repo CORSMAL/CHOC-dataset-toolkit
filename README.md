@@ -1,10 +1,13 @@
-# CHOC-dataset-toolkit
-Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the 3D data, clean the NOCS images, convert 6D object poses, instructions, and other utility functions. You can download the CHOC dataset [here](https://zenodo.org/record/5085801#.Y3zGQ9LP2V4), and read the corresponding paper [here](https://arxiv.org/abs/2211.10470).
+# Toolkit for the CHOC dataset
 
-[Webpage](https://corsmal.eecs.qmul.ac.uk/pose.html)
+Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to inspect the 3D data, clean the NOCS images, convert 6D object poses, instructions, and other utility functions. 
+
+[[dataset](https://zenodo.org/record/5085801#.Y3zGQ9LP2V4)]
+[[webpage](https://corsmal.eecs.qmul.ac.uk/pose.html)]
+[[arxiv pre-print](https://arxiv.org/abs/2211.10470)]
 
 ## Table of contents
-1. [Requirements](#requirements)
+1. [Installation](#requirements)
 2. [Running sample codes](#running)
    1. [Inspect the data](#inspect)
    2. [Clean the NOCS backgrounds](#clean)
@@ -13,21 +16,22 @@ Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to in
 4. [Enquiries](#enquires)
 5. [License](#license)
 
-## Requirements <a name="requirements"></a>
+## Installation <a name="requirements"></a>
 
-- SciPy
-- Open3D
-- NumPy
-- OpenCV
+The toolkit was implemented and tested with the following requirements on a machine with Ubuntu XXX
 
-This code has been tested with python 3.9, but should work with other versions. You can make and activate a conda environment:
+Requirements:
+- Anaconda XXX
+- Python 3.9
+- SciPy version?
+- Open3D version?
+- NumPy version?
+- OpenCV version?
+
+Use the following commands to install the toolkit within an Anaconda environment:
 ```
 conda create -n CHOC-toolkit-env python=3.9
 conda activate CHOC-toolkit-env
-```
-
-You can install the dependencies as follows:
-```
 pip install -r requirements.txt
 ```
 
@@ -184,4 +188,4 @@ For any questions, please open an issue on this repository, or send an email to 
 
 ## License <a name="license"></a>
 
-This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+This work is licensed under the MIT License. To view a copy of this license, see [LICENSE](LICENSE).
