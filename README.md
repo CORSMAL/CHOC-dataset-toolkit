@@ -26,30 +26,50 @@ pip install -r requirements.txt
 Here, we will explain how to inspect the data in 3D, clean the NOCS backgrounds, and convert the annotated poses into camera2object poses.
 We will use "000251" in the CHOC mixed-reality data as example, which you can also find in this repository in the _sample_ folder.
 
+<details>
+<summary> Show images for 000251</summary>
+
+<br>
+
   RGB                       |  NOCS                     |  Mask                     |  Depth
 :--------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 ![RGB](sample/CHOC/mixed-reality/rgb/b_000001_001000/000251.png) |![NOCS](sample/CHOC/mixed-reality/nocs/b_000001_001000/000251.png)|![Mask](sample/CHOC/mixed-reality/mask/b_000001_001000/000251.png)|![Depth](images/depth.png)
+
+</details>
 
 #### Inspecting the data
 
 We provide some sample code to visualise the data in 3D.
 ```
-python inspect_data.py --choc_dir <path_to_choc>
+python inspect_data.py --choc_dir <path_to_choc> --image_index 000251
 ```
+
+<details>
+<summary> Show result for 000251</summary>
+
+<br>
 
   Object                      |  Depth, Annotation        |  Both                     
 :----------------------------:|:-------------------------:|:-------------------------:
 ![Metric object points](images/object.png) |![Depth; Transformed object](images/depth_and_transformed_object.png)|![Both](images/both.png)
 
+</details>
+
+
 #### Clean the NOCS backgrounds
 ```
-python fix_nocs.py --choc_dir <path_to_choc>
+python fix_nocs.py --choc_dir <path_to_choc> --image_index 000001
 ```
+<details>
+<summary> Show before and after for 000251</summary>
 
-Here is an example of the NOCS image ("000001.png") before and after using Otsu's algorithm to 'fix' the background:
+<br>
+
   Before                    |  After
 :--------------------------:|:-------------------------:
 ![Before processing](images/nocs_before.png) |![After processing](images/nocs_after.png)
+
+</details>
 
 #### Convert the poses
 
