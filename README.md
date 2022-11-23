@@ -59,6 +59,8 @@ python inspect_data.py --choc_dir <path_to_choc> --image_index 000251
 
 <br>
 
+Here we visualise the un-normalised NOCS-points in green; the depth points in blue; the un-normalised NOCS points transformed using the converted pose in red. They are all visualised in the camera coordinate system (OpenGL convention).
+
   Object                      |  Depth, Annotation        |  Both                     
 :----------------------------:|:-------------------------:|:-------------------------:
 ![Metric object points](images/object.png) |![Depth; Transformed object](images/depth_and_transformed_object.png)|![Both](images/both.png)
@@ -78,7 +80,7 @@ python fix_nocs.py --choc_dir <path_to_choc> --image_index 000251
 
 <br>
 
-Here we zoom in on the pixels. Note how they were [13,13,13] or [14,14,14] before; and [0,0,0] after using Otsu's method.
+Here we zoom in on the pixels. Note how the background pixels were [13,13,13] or [14,14,14] before; and [0,0,0] after using Otsu's method.
 
 
   Before                    |  After
@@ -89,7 +91,7 @@ Here we zoom in on the pixels. Note how they were [13,13,13] or [14,14,14] befor
 
 ### Convert the poses <a name="convert"></a>
 
-Here's an example of the annotated file, e.g.: CHOC > mixed-reality > annotations > b_000001_0010000 > 000001.json:
+Here's an example of the annotated file for image "000251".
 ```
 {
     "background_id": "000016.png",
@@ -177,7 +179,7 @@ o3d.io.write_triangle_mesh(<path_to_output_off_file>, mesh)
 
 ## Enquiries <a name="enquiries"></a>
 
-For any questions, please open an Issue on this repository, or send an email to corsmal-challenge@qmul.ac.uk.
+For any questions, please open an issue on this repository, or send an email to corsmal-challenge@qmul.ac.uk.
 
 ## License <a name="license"></a>
 
