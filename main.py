@@ -54,6 +54,7 @@ def load_images(batch_folder, image_index):
     # mask
     mask_path = os.path.join(args.choc_dir, "mixed-reality", "mask", batch_folder, "{}.png".format(image_index))
     mask = cv2.imread(mask_path)[:,:,2]
+    
     return rgb, depth, nocs, mask
 
 def load_pose_scaling_factor(batch_folder, image_index):
@@ -111,13 +112,77 @@ def visualise_in_3D(pts, metric_points, RT):
     origin_axes_big = o3d.geometry.TriangleMesh.create_coordinate_frame(size=100, origin=[0, 0, 0])
     o3d.visualization.draw_geometries([depth_pcl, metric_pcl, annotated_pcl, origin_axes_big], window_name="Annotated (R), Metric Object (G), Depth (B)")
 
-if __name__ == '__main__':
-    
-    # Parsing arguments from command line
-    parser = argparse.ArgumentParser()
+
+
+def InspectData(depth, nocs, mask, image_index, batch_folder):
+    # clean nocs background
+    nocs_fixed = utils.fix_background_nocs(nocs)
+    # binarize mask; remove hand too
+    mask_binary = utils.mask_remove_hand_and_binarize(mask)
+    # remove pixels from nocs and mask if they are not both non-zero (both meaning: both in nocs and mask)
+    nocs_clean, mask_clean, gt_image_points = utils.intersect_nocs_mask_values(nocs_fixed, mask_binary)
+    # normalise nocs
+    nocs_norm = np.array(nocs_clean, dtype=np.float32) / 255.0
+    # Back-project depth points | image plane (u,v,Z) -> camera coordinate system (X,Y,Z))
+    pts, idxs = utils.backproject_opengl(depth, utils.get_intrinsics(), mask_clean)
+
+    # Get pose and scaling factor
+    RT, gt_scale_factor = load_pose_scaling_factor(batch_folder, image_index)
+
+    # Get the nocs points
+    nocs_points = nocs_norm[idxs[0], idxs[1], :] - 0.5 # we do -0.5 to centre the object at the origin
+    # Un-normalise to get the metric points
+    metric_points = nocs_points * gt_scale_factor # in millimeter
+
+    visualise_in_3D(pts, metric_points, RT)    
+
+
+def FixNOCS(nocs):
+    # Visualise the problem [zoom in on background to see the pixel values]
+    cv2.imshow("problematic nocs background", nocs[:,:,::-1])
+
+    # Fix the problem
+    print("unique values in nocs:", np.unique(nocs))
+    nocs_fixed = utils.fix_background_nocs(nocs)
+    print("unique values in nocs fixed:", np.unique(nocs_fixed))
+
+    # Visualise the fixed nocs [zoom in on background to see the pixel values]
+    cv2.imshow("fixed nocs background", nocs_fixed[:,:,::-1])
+
+    # Press 'Esc' key to close windows
+    while True:
+        k = cv2.waitKey(0) & 0xFF
+        print(k)
+        if k == 27:
+            cv2.destroyAllWindows()
+            break
+
+
+def CheckOpenCvVersion():
+    (major, minor, _) = cv2.__version__.split(".")
+
+
+def GetParser():
+    parser = argparse.ArgumentParser(
+        description='Toolkit for CORSMAL Hand-Occluded Containers (CHOC) dataset',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
     parser.add_argument('--choc_dir', type=str, help="Path to the CHOC dataset.", default="sample/CHOC")
     parser.add_argument('--image_index', type=str, help="Image index in 6-digit string format.", default="000251")
-    parser.add_argument('--operation', type=str, help="inspect, fix_nocs, convert_pose", default="inspect")
+    parser.add_argument('--operation', type=str, help="inspect, fix_nocs, convert_pose", 
+        default="inspect", choice=["inspect", "fix_nocs", "convert_pose"])
+
+    return parser
+
+
+
+if __name__ == '__main__':
+    print('Initialising:')
+    print('Python {}.{}'.format(sys.version_info[0], sys.version_info[1]))
+    print('OpenCV {}'.format(cv2.__version__))
+    
+    # Arguments
+    parser = GetParser()
     args = parser.parse_args()
 
     # Get the batch folder
@@ -128,49 +193,10 @@ if __name__ == '__main__':
     rgb, depth, nocs, mask = load_images(batch_folder, image_index)
 
     if args.operation == "inspect":
-        # clean nocs background
-        nocs_fixed = utils.fix_background_nocs(nocs)
-        # binarize mask; remove hand too
-        mask_binary = utils.mask_remove_hand_and_binarize(mask)
-        # remove pixels from nocs and mask if they are not both non-zero (both meaning: both in nocs and mask)
-        nocs_clean, mask_clean, gt_image_points = utils.intersect_nocs_mask_values(nocs_fixed, mask_binary)
-        # normalise nocs
-        nocs_norm = np.array(nocs_clean, dtype=np.float32) / 255.0
-        # Back-project depth points | image plane (u,v,Z) -> camera coordinate system (X,Y,Z))
-        pts, idxs = utils.backproject_opengl(depth, utils.get_intrinsics(), mask_clean)
-
-        # Get pose and scaling factor
-        RT, gt_scale_factor = load_pose_scaling_factor(batch_folder, image_index)
-
-        # Get the nocs points
-        nocs_points = nocs_norm[idxs[0], idxs[1], :] - 0.5 # we do -0.5 to centre the object at the origin
-        # Un-normalise to get the metric points
-        metric_points = nocs_points * gt_scale_factor # in millimeter
-
-        visualise_in_3D(pts, metric_points, RT)
-    
+        InspectData(depth, nocs, mask, image_index, batch_folder)    
    
     elif args.operation == "fix_nocs":
-        
-        # Visualise the problem [zoom in on background to see the pixel values]
-        cv2.imshow("problematic nocs background", nocs[:,:,::-1])
-
-        # Fix the problem
-        print("unique values in nocs:", np.unique(nocs))
-        nocs_fixed = utils.fix_background_nocs(nocs)
-        print("unique values in nocs fixed:", np.unique(nocs_fixed))
-
-        # Visualise the fixed nocs [zoom in on background to see the pixel values]
-        cv2.imshow("fixed nocs background", nocs_fixed[:,:,::-1])
-
-        # Press 'Esc' key to close windows
-        while True:
-            k = cv2.waitKey(0) & 0xFF
-            print(k)
-            if k == 27:
-                cv2.destroyAllWindows()
-                break
-
+        FixNOCS(nocs)
 
     elif args.operation == "convert_pose":
         
