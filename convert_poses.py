@@ -52,6 +52,9 @@ object_id = image_info["object_id"]
 pose_quat_wxyz = image_info["pose_quaternion_wxyz"]
 location_xyz = image_info["location_xyz"]
 
+print("Pose (Quaternion WXYZ):", pose_quat_wxyz)
+print("Location (XYZ):", location_xyz)
+
 # Get the height of the object in this image
 object_datastructure_path = os.path.join(args.choc_dir, "mixed-reality", "extra", "object_models", "object_datastructure.json")
 with open(object_datastructure_path, 'r') as f:

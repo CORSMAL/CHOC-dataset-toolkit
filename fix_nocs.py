@@ -56,23 +56,17 @@ nocs_image_path = os.path.join(args.choc_dir, "mixed-reality", "nocs", utils.ima
 nocs_image = cv2.imread(nocs_image_path)[:,:,::-1] # load as RGB
 
 # Visualise the problem [zoom in on background to see the pixel values]
-cv2.imshow("problematic nocs background", nocs_image)
-#cv2.waitKey(0)
-#cv2.destroyAllWindows()
+cv2.imshow("problematic nocs background", nocs_image[:,:,::-1])
 
 # Fix the problem
 print("unique values in nocs:", np.unique(nocs_image))
 nocs_image_fixed = utils.fix_background_nocs(nocs_image)
 print("unique values in nocs fixed:", np.unique(nocs_image_fixed))
 
-im_pil = Image.fromarray(nocs_image_fixed)
-im_pil.show()
-
 # Visualise the fixed nocs [zoom in on background to see the pixel values]
-cv2.imshow("fixed nocs background", nocs_image_fixed)
-# cv2.waitKey(0)
-# #cv2.destroyAllWindows()
+cv2.imshow("fixed nocs background", nocs_image_fixed[:,:,::-1])
 
+# Press 'Esc' key to close windows
 while True:
     k = cv2.waitKey(0) & 0xFF
     print(k)

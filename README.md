@@ -14,7 +14,6 @@ This code has been tested with python 3.9, but should work with other versions. 
 ```
 conda create -n CHOC-toolkit-env python=3.9
 conda activate CHOC-toolkit-env
-
 ```
 
 You can install the dependencies as follows:
@@ -24,7 +23,16 @@ pip install -r requirements.txt
 
 ### Running the sample codes
 
+Here, we will explain how to inspect the data in 3D, clean the NOCS backgrounds, and convert the annotated poses into camera2object poses.
+We will use "000251" in the CHOC mixed-reality data as example, which you can also find in this repository in the _sample_ folder.
+
+  RGB                       |  NOCS                     |  Mask                     |  Depth
+:--------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![RGB](sample/CHOC/mixed-reality/rgb/b_000001_001000/000251.png) |![NOCS](sample/CHOC/mixed-reality/nocs/b_000001_001000/000251.png)|![Mask](sample/CHOC/mixed-reality/mask/b_000001_001000/000251.png)|![Depth](sample/CHOC/mixed-reality/depth/b_000001_001000/000251.png)
+
 #### Inspecting the data
+
+We provide some sample code to visualise the data in 3D.
 ```
 python inspect_data.py --choc_dir <path_to_choc>
 ```
@@ -34,14 +42,55 @@ python inspect_data.py --choc_dir <path_to_choc>
 python fix_nocs.py --choc_dir <path_to_choc>
 ```
 
+Here is an example of the NOCS image ("000001.png") before and after using Otsu's algorithm to 'fix' the background:
   Before                    |  After
 :--------------------------:|:-------------------------:
 ![Before processing](images/nocs_before.png) |![After processing](images/nocs_after.png)
 
 #### Convert the poses
+
+Here's an example of the annotated file, e.g.: CHOC > mixed-reality > annotations > b_000001_0010000 > 000001.json:
 ```
-python convert_poses.py --choc_dir <path_to_choc>
+{
+    "background_id": "000000.png",
+    "flip_box": false,
+    "grasp_id": 0,
+    "location_xyz": [
+        0.32728955149650574,
+        4.607999801635742,
+        -0.06526760011911392
+    ],
+    "object_id": 29,
+    "pose_quaternion_wxyz": [
+        0.9287700653076172,
+        -0.1474159061908722,
+        0.09974487870931625,
+        0.3251240849494934
+    ],
+    "occlusion_ratio": 57.89473684210527
+}
 ```
+The _location\_xyz_ and _pose\_quaternion\_wxyz_ is the pose that was used to place the object inside the blender environment. It is NOT the camera-object pose. To convert the pose, you can do as follows:
+```
+python convert_poses.py --choc_dir <path_to_choc> --image_index <image_index_string>
+```
+
+For image_index "000001" the result will be:
+```
+Pose for blender:
+[[   0.76869058   -0.633339      0.08942319  327.2895515 ]
+ [   0.57452307    0.74512576    0.33868989 4607.99980164]
+ [  -0.28113704   -0.20897204    0.93663902  -65.26760012]
+ [   0.            0.            0.            1.        ]]
+
+Pose between camera and object:
+[[    0.76869058    -0.633339       0.08942319   332.58864591]
+ [   -0.28113704    -0.20897204     0.93663902    -9.76367027]
+ [   -0.57452307    -0.74512576    -0.33868989 -4628.07009489]
+ [    0.             0.             0.             1.        ]]
+```
+Pose for blender is simply _location\_xyz_ and _pose\_quaternion\_wxyz_ converted into a 4x4 transformation matrix.
+Pose between camera and object is the 4x4 transformation matrix between the camera and object.
 
 ### Other instructions
 
