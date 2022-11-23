@@ -12,9 +12,9 @@ Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to in
    1. [Inspect the data](#inspect)
    2. [Clean the NOCS backgrounds](#clean)
    3. [Convert poses](#convert)
-3. [Other instructions](#instructions)
-4. [Enquiries](#enquires)
-5. [License](#license)
+3. [Load GraspIt! worlds](#instructions)
+4. [Enquiries](#enquiries)
+6. [License](#license)
 
 ## Installation <a name="requirements"></a>
 
@@ -138,33 +138,20 @@ Pose between camera and object:
 Pose for blender is simply _location\_xyz_ and _pose\_quaternion\_wxyz_ converted into a 4x4 transformation matrix.
 Pose between camera and object is the 4x4 transformation matrix between the camera and object.
 
-## Other instructions <a name="instructions"></a>
+## Loading GraspIt! world files <a name="instructions"></a>
 
-<details>
-<summary> Instructions to load the GraspIt! world files</summary>
-
-<br>
-  
-#### 
-1. Install ROS Melodic (or another version)
- * Follow: http://wiki.ros.org/melodic/Installation/Ubuntu
-
+1. Install ROS Melodic (or another version): http://wiki.ros.org/melodic/Installation/Ubuntu
 2. Install GraspIt!
- * First follow: https://graspit-simulator.github.io/build/html/installation_linux.html
- * Then follow: https://github.com/graspit-simulator/graspit_interface
+   * https://graspit-simulator.github.io/build/html/installation_linux.html
+   * https://github.com/graspit-simulator/graspit_interface
 
-3. Install ManoGrasp
- * Follow the steps ‘Install’ and ‘Model’ in https://github.com/ikalevatykh/mano_grasp
-
+3. Install ManoGrasp: https://github.com/ikalevatykh/mano_grasp (see ‘Install’ and ‘Model’ steps)
 4. Open GraspIt! via terminal
 ```
 $ source <your_graspit_ros_workspace>/devel/setup.bash
 $ roslaunch graspit_interface graspit_interface.launch
 ```
-
-5. Convert object files from .glb to .off
-
-Here's a Python code sample, using Open3D to do the conversion:
+5. Convert object files from .glb to .off using Open3D (sample code):
 
 ```python
 import open3d as o3d
@@ -175,16 +162,15 @@ mesh = o3d.io.read_triangle_mesh(<path_to_input_glb_file>)
 # Save as .off file
 o3d.io.write_triangle_mesh(<path_to_output_off_file>, mesh)
 ```
+All object .off files should be placed inside your GraspIt! workspace > objects > object_models
 
-Then you can put all object .off files inside your GraspIt! workspace > objects > object_models
+6. Load the .xml GraspIt! world (hand and object) from File > Import World (e.g. right_hand_bottom_box_01.xml) 
 
-6. Load our GraspIt! world to load the hand and object
- * File > Import World > Look for the .xml files in graspit_worlds (e.g. right_hand_bottom_box_01.xml) 
-</details>
 
 ## Enquiries <a name="enquiries"></a>
 
 For any questions, please open an issue on this repository, or send an email to corsmal-challenge@qmul.ac.uk.
+
 
 ## License <a name="license"></a>
 
