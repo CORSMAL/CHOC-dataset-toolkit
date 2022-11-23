@@ -159,7 +159,8 @@ $ roslaunch graspit_interface graspit_interface.launch
 ```
 
 5. Convert object files from .glb to .off
- * Convert .glb files to .off. Here's a Python code sample:
+
+Here's a Python code sample, using Open3D to do the conversion:
 
 ```python
 import open3d as o3d
@@ -171,7 +172,7 @@ mesh = o3d.io.read_triangle_mesh(<path_to_input_glb_file>)
 o3d.io.write_triangle_mesh(<path_to_output_off_file>, mesh)
 ```
 
- * Put all object .off files inside your GraspIt! workspace > objects > object_models
+Then you can put all object .off files inside your GraspIt! workspace > objects > object_models
 
 6. Load our GraspIt! world to load the hand and object
  * File > Import World > Look for the .xml files in graspit_worlds (e.g. right_hand_bottom_box_01.xml) 
