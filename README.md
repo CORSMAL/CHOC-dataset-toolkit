@@ -53,9 +53,9 @@ We will use "000251" in the CHOC mixed-reality data as example, which you can al
 
 ### Inspecting the data <a name="inspect"></a>
 
-We provide some sample code to visualise the data in 3D.
+We provide sample code to visualise the data in 3D.
 ```
-python inspect_data.py --choc_dir <path_to_choc> --image_index 000251
+python main.py --choc_dir <path_to_choc> --image_index 000251 --operation inspect
 ```
 
 <details>
@@ -77,14 +77,21 @@ Here we visualise the un-normalised NOCS-points in green; the depth points in bl
 Due to an issue in the rendering process, the background pixels of the NOCS images are not truly black, i.e. [0,0,0]. We provide sample code to fix this.
 
 ```
-python fix_nocs.py --choc_dir <path_to_choc> --image_index 000251
+python main.py --choc_dir <path_to_choc> --image_index 000251 --operation fix_nocs
 ```
 <details>
 <summary> Show before and after for 000251</summary>
 
 <br>
 
-Here we zoom in on the pixels. Note how the background pixels were [13,13,13] or [14,14,14] before; and [0,0,0] after using Otsu's method.
+NOTE: It seems that the background pixels are always [13,13,13] or [14,14,14], but we haven't verified that.
+Therefore we choose to segment the foreground from background using Otsu's algorithm:
+We use https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html#:~:text=Otsu's%20Binarization,determines%20it%20automatically.
+
+Otsu works well, since there is a clear separation between foreground/background, but we found it is not perfect. I.e. sometimes, 
+it will remove some NOCS pixels.
+
+In this visualisation of the result, we zoom in on the pixels. Note how the background pixels were [13,13,13] or [14,14,14] before; and [0,0,0] after using Otsu's method.
 
 
   Before                    |  After
@@ -118,7 +125,7 @@ Here's an example of the annotated file for image "000251".
 ```
 The _location\_xyz_ and _pose\_quaternion\_wxyz_ is the pose that was used to place the object inside the blender environment. It is NOT the camera-object pose. To convert the pose, you can do as follows:
 ```
-python convert_poses.py --choc_dir <path_to_choc> --image_index <image_index_string>
+python main.py --choc_dir <path_to_choc> --image_index <image_index_string> --operation convert_pose
 ```
 
 For image_index "000251" the result will be:
