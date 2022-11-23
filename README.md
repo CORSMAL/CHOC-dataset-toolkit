@@ -3,7 +3,7 @@ Toolkit for the CORSMAL Hand-Occluded Containers (CHOC) dataset with codes to in
 
 [Webpage](https://corsmal.eecs.qmul.ac.uk/pose.html)
 
-### Install requirements
+## Install requirements
 
 - SciPy
 - Open3D
@@ -21,7 +21,7 @@ You can install the dependencies as follows:
 pip install -r requirements.txt
 ```
 
-### Running the sample codes
+## Running the sample codes
 
 Here, we will explain how to inspect the data in 3D, clean the NOCS backgrounds, and convert the annotated poses into camera2object poses.
 We will use "000251" in the CHOC mixed-reality data as example, which you can also find in this repository in the _sample_ folder.
@@ -37,7 +37,7 @@ We will use "000251" in the CHOC mixed-reality data as example, which you can al
 
 </details>
 
-#### Inspecting the data
+### Inspecting the data
 
 We provide some sample code to visualise the data in 3D.
 ```
@@ -56,14 +56,20 @@ python inspect_data.py --choc_dir <path_to_choc> --image_index 000251
 </details>
 
 
-#### Clean the NOCS backgrounds
+### Clean the NOCS backgrounds
+
+Due to an issue in the rendering process, the background pixels of the NOCS images are not truly black, i.e. [0,0,0]. We provide sample code to fix this.
+
 ```
-python fix_nocs.py --choc_dir <path_to_choc> --image_index 000001
+python fix_nocs.py --choc_dir <path_to_choc> --image_index 000251
 ```
 <details>
 <summary> Show before and after for 000251</summary>
 
 <br>
+
+Here we zoom in on the pixels. Note how they were [13,13,13] or [14,14,14] before; and [0,0,0] after using Otsu's method.
+
 
   Before                    |  After
 :--------------------------:|:-------------------------:
@@ -71,27 +77,27 @@ python fix_nocs.py --choc_dir <path_to_choc> --image_index 000001
 
 </details>
 
-#### Convert the poses
+### Convert the poses
 
 Here's an example of the annotated file, e.g.: CHOC > mixed-reality > annotations > b_000001_0010000 > 000001.json:
 ```
 {
-    "background_id": "000000.png",
+    "background_id": "000016.png",
     "flip_box": false,
     "grasp_id": 0,
     "location_xyz": [
-        0.32728955149650574,
-        4.607999801635742,
-        -0.06526760011911392
+        -0.1323072761297226,
+        1.0679999589920044,
+        -0.029042737558484077
     ],
     "object_id": 29,
     "pose_quaternion_wxyz": [
-        0.9287700653076172,
-        -0.1474159061908722,
-        0.09974487870931625,
-        0.3251240849494934
+        0.9741891026496887,
+        0.16082336008548737,
+        0.15678565204143524,
+        -0.022577593103051186
     ],
-    "occlusion_ratio": 57.89473684210527
+    "occlusion_ratio": 37.99846625766871
 }
 ```
 The _location\_xyz_ and _pose\_quaternion\_wxyz_ is the pose that was used to place the object inside the blender environment. It is NOT the camera-object pose. To convert the pose, you can do as follows:
@@ -99,24 +105,24 @@ The _location\_xyz_ and _pose\_quaternion\_wxyz_ is the pose that was used to pl
 python convert_poses.py --choc_dir <path_to_choc> --image_index <image_index_string>
 ```
 
-For image_index "000001" the result will be:
+For image_index "000251" the result will be:
 ```
 Pose for blender:
-[[   0.76869058   -0.633339      0.08942319  327.2895515 ]
- [   0.57452307    0.74512576    0.33868989 4607.99980164]
- [  -0.28113704   -0.20897204    0.93663902  -65.26760012]
+[[   0.94981703    0.09441928    0.29821572 -132.30727613]
+ [   0.0064399     0.9472522    -0.3204244  1067.99995899]
+ [  -0.31273974    0.30626503    0.89910822  -29.04273756]
  [   0.            0.            0.            1.        ]]
 
 Pose between camera and object:
-[[    0.76869058    -0.633339       0.08942319   332.58864591]
- [   -0.28113704    -0.20897204     0.93663902    -9.76367027]
- [   -0.57452307    -0.74512576    -0.33868989 -4628.07009489]
+[[    0.94981703     0.09441928     0.29821572  -114.63542574]
+ [   -0.31273974     0.30626503     0.89910822    24.237169  ]
+ [   -0.0064399     -0.9472522      0.3204244  -1049.01205329]
  [    0.             0.             0.             1.        ]]
 ```
 Pose for blender is simply _location\_xyz_ and _pose\_quaternion\_wxyz_ converted into a 4x4 transformation matrix.
 Pose between camera and object is the 4x4 transformation matrix between the camera and object.
 
-### Other instructions
+## Other instructions
 
 <details>
 <summary> Instructions to load the GraspIt! world files</summary>
