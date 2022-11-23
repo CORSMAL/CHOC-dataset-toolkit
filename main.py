@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Sample code to view the object, transformed object, depth pointclouds in Open3D, per image in CHOC mixed-reality.
+# Sample code to inspect the data in 3D, fix the NOCS backgrounds and convert poses.
 #
 ################################################################################## 
 # Author: 
