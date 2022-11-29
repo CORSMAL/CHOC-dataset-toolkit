@@ -39,6 +39,7 @@ import open3d as o3d
 import cv2 
 import os
 import json
+import sys
 
 def load_images(batch_folder, image_index):
     # depth
@@ -170,10 +171,9 @@ def GetParser():
     parser.add_argument('--choc_dir', type=str, help="Path to the CHOC dataset.", default="sample/CHOC")
     parser.add_argument('--image_index', type=str, help="Image index in 6-digit string format.", default="000251")
     parser.add_argument('--operation', type=str, help="inspect, fix_nocs, convert_pose", 
-        default="inspect", choice=["inspect", "fix_nocs", "convert_pose"])
+        default="inspect", choices=["inspect", "fix_nocs", "convert_pose"])
 
     return parser
-
 
 
 if __name__ == '__main__':
