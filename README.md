@@ -98,7 +98,7 @@ Note: all points are visualised in the camera coordinate system (OpenGL conventi
 
 ### Clean the NOCS backgrounds <a name="clean"></a>
 
-We observed that the rendering process in Blender does not alwayse set to 0 all the background pixels for the ground-truth NOCS maps, and many pixels have triplet values like [13,13,13] or [14,14,14] (although this was not verified across all generated maps). The toolkit provides a sample code to set these background pixels to 0 by exploiting the [Otsu's method](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html#:~:text=Otsu's%20Binarization,determines%20it%20automatically), available in OpenCV, to dynamically segmenting the foreground from background. Note that this algorithm is not always accurate and may remove some pixels of the foreground object (NOCS values).
+We observed that the rendering process in Blender does not always set to 0 all the background pixels for the ground-truth NOCS maps, and many pixels have triplet values like [13,13,13] or [14,14,14] (although this was not verified across all generated maps). The toolkit provides a sample code to set these background pixels to 0 by exploiting [Otsu's method](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html#:~:text=Otsu's%20Binarization,determines%20it%20automatically), available in OpenCV, to dynamically segment the foreground from background. Note that this algorithm is not always accurate and may remove some pixels of the foreground object (NOCS values).
 
 To refine the background of the ground-truth NOCS maps, you can run from terminal the following command:
 ```
